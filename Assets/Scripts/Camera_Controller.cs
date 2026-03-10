@@ -11,6 +11,10 @@ public class Camera_Controller : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Vector3 rot = transform.rotation.eulerAngles;
+        xRotation = rot.x;
+        yRotation = rot.y;
     }
 
     void Update()
@@ -25,4 +29,4 @@ public class Camera_Controller : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
-}       
+}
