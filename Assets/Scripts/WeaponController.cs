@@ -4,7 +4,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public Camera playerCamera;       
-    public float maxDistance = 100f;
+    public float maxDistance = 10000000000f;
     public int vidas = 3;
 
     void Start()
@@ -40,8 +40,8 @@ public class WeaponController : MonoBehaviour
             if (hit.collider.CompareTag("Target"))
             {
            
-                Destroy(hit.collider.gameObject, 0.3f); 
-                Debug.Log("Objetivo destruido con retraso");
+                Destroy(hit.collider.gameObject,0.1f); 
+               
             }
             else
             {
@@ -57,7 +57,7 @@ public class WeaponController : MonoBehaviour
     void PerderVida()
     {
         vidas--;
-        Debug.Log("Fallaste. Vidas restantes: " + vidas);
+        Debug.Log("Fallaste. vidas restantes: " + vidas);
 
         if (vidas <= 0)
         {
