@@ -4,7 +4,9 @@ public class Movement_Player : MonoBehaviour
 {
     public float speed = 5f;
 
-    public BoxCollider movementArea;
+    // Límites del mapa
+    public float minX, maxX;
+    public float minZ, maxZ;
 
     void Update()
     {
@@ -15,11 +17,9 @@ public class Movement_Player : MonoBehaviour
 
         transform.Translate(movement, Space.World);
 
-        //limites collider
-        Bounds bounds = movementArea.bounds;
-
-        float clampedX = Mathf.Clamp(transform.position.x, bounds.min.x, bounds.max.x);
-        float clampedZ = Mathf.Clamp(transform.position.z, bounds.min.z, bounds.max.z);
+        // Limitar posición
+        float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
+        float clampedZ = Mathf.Clamp(transform.position.z, minZ, maxZ);
 
         transform.position = new Vector3(clampedX, transform.position.y, clampedZ);
     }
