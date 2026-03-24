@@ -39,7 +39,7 @@ public class BeatSpawner : MonoBehaviour
             Vector3 spawnPos = RandomPos();
             GameObject enemy = Instantiate(targetPrefab, spawnPos, Quaternion.identity);
 
-            //Destroy(enemy, 1f);
+           // Destroy(enemy, 2f);//
 
             index++;
         }
