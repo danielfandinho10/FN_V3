@@ -8,8 +8,10 @@ public class BeatSpawner : MonoBehaviour
     public GameObject targetPrefab;
     public Transform spawnArea;
     public AudioSource audioSource;
+    public Transform player; 
     public float travelTime = 0.6f;
     public float minDistance = 2f;
+    public float spawnHeight = 1.5f; 
 
     List<float> beats = new List<float>();
     int index = 0;
@@ -17,7 +19,7 @@ public class BeatSpawner : MonoBehaviour
 
     void Start()
     {
-        if (config == null || audioSource == null || targetPrefab == null || spawnArea == null)
+        if (config == null || audioSource == null || targetPrefab == null || spawnArea == null || player == null)
         {
             Debug.LogError("BeatSpawner: faltan refs en el inspector");
             return;
@@ -37,9 +39,16 @@ public class BeatSpawner : MonoBehaviour
         while (index < beats.Count && time + travelTime >= beats[index])
         {
             Vector3 spawnPos = RandomPos();
-            GameObject enemy = Instantiate(targetPrefab, spawnPos, Quaternion.identity);
+            spawnPos.y = spawnHeight;
 
-           // Destroy(enemy, 2f);//
+            Vector3 dir = player.position - spawnPos;
+            dir.y = 0f;
+
+            Quaternion rot = Quaternion.LookRotation(dir);
+
+            GameObject enemy = Instantiate(targetPrefab, spawnPos, rot);
+
+            // Destroy(enemy, 2f);
 
             index++;
         }
@@ -62,8 +71,6 @@ public class BeatSpawner : MonoBehaviour
                 beats.Add(t);
             }
         }
-
-      
     }
 
     Vector3 RandomPos()
