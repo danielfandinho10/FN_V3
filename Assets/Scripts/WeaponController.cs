@@ -55,9 +55,11 @@ public class WeaponController : MonoBehaviour
         {
             Debug.Log("Golpeó: " + hit.collider.name);
 
-            if (hit.collider.CompareTag("Target"))
+            Transform root = hit.collider.transform.root;
+
+            if (root.CompareTag("Target"))
             {
-                Destroy(hit.collider.gameObject, 0.3f);
+                Destroy(root.gameObject, 0.3f);
             }
             else
             {

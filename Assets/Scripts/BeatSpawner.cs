@@ -48,7 +48,7 @@ public class BeatSpawner : MonoBehaviour
 
             GameObject enemy = Instantiate(targetPrefab, spawnPos, rot);
 
-            // Destroy(enemy, 2f);
+             //Destroy(enemy, 3.5f);
 
             index++;
         }
