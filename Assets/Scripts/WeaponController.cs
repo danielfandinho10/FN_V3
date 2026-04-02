@@ -60,6 +60,7 @@ public class WeaponController : MonoBehaviour
             if (root.CompareTag("Target"))
             {
                 Destroy(root.gameObject, 0.3f);
+                GameEvents.OnHit?.Invoke();
             }
             else
             {
@@ -77,10 +78,11 @@ public class WeaponController : MonoBehaviour
         vidas--;
         Debug.Log("Fallaste. vidas restantes: " + vidas);
 
+        GameEvents.OnMiss?.Invoke();
+
         if (vidas <= 0)
         {
             Debug.Log("GAME OVER");
-            // Time.timeScale = 0f;
         }
     }
 

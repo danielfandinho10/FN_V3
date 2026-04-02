@@ -6500,6 +6500,7 @@ GameObject:
   - component: {fileID: 2000506096}
   - component: {fileID: 2000506098}
   - component: {fileID: 2000506097}
+  - component: {fileID: 2000506099}
   m_Layer: 0
   m_Name: Life_Bar
   m_TagString: Untagged
@@ -6564,6 +6565,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000506095}
   m_CullTransparentMesh: 1
+--- !u!114 &2000506099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000506095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031bdd23fdbce19478cebb58718f11d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LifeBarBehaviour
+  fillImage: {fileID: 2000506097}
+  currentLife: 1
+  hitAmount: 0.05
+  missAmount: 0.05
 --- !u!4 &2109465773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bf9a6110e13f2c4438050c79809874af, type: 3}
