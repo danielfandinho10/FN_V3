@@ -10,9 +10,8 @@ public class WeaponController : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
 
-    // --- NUEVO: timing windows
-    public float perfectWindow = 0.1f;
-    public float goodWindow = 0.25f;
+    public float perfectWindow = 1f;
+    public float goodWindow = 3f;
 
     void Start()
     {
@@ -44,42 +43,40 @@ public class WeaponController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
-            Debug.Log("Golpeó: " + hit.collider.name);
-
             Transform root = hit.collider.transform.root;
 
             if (root.CompareTag("Target"))
             {
-                // --- NUEVO: timing window
                 Enemy enemy = root.GetComponent<Enemy>();
+
                 if (enemy != null && enemy.audioSource != null)
                 {
                     float currentTime = enemy.audioSource.time;
-                    float diff = Mathf.Abs(currentTime - enemy.targetTime);
+                    float expectedHitTime = enemy.targetTime + 0.8f; // travelTime
+                    float diff = Mathf.Abs(currentTime - expectedHitTime);
 
                     if (diff <= perfectWindow)
                     {
                         Debug.Log("PERFECT");
                         GameEvents.OnPerfect?.Invoke();
+                        GameEvents.OnHit?.Invoke();
                     }
                     else if (diff <= goodWindow)
                     {
                         Debug.Log("GOOD");
                         GameEvents.OnGood?.Invoke();
+                        GameEvents.OnHit?.Invoke();
                     }
                     else
                     {
                         Debug.Log("BAD");
-                        GameEvents.OnMiss?.Invoke();
                     }
                 }
                 else
                 {
-                    // si no tiene Enemy, sigue funcionando como antes
                     GameEvents.OnHit?.Invoke();
                 }
 
-                // --- Mantener destroy con delay
                 Destroy(root.gameObject, 0.3f);
             }
             else
@@ -97,7 +94,6 @@ public class WeaponController : MonoBehaviour
     {
         vidas--;
         Debug.Log("Fallaste. vidas restantes: " + vidas);
-
         GameEvents.OnMiss?.Invoke();
 
         if (vidas <= 0)

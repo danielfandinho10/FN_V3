@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TimingUI : MonoBehaviour
 {
-    public TextMeshProUGUI text;  // arrastra aquí tu TMP text
+    public TextMeshProUGUI text;  
     public float duration = 0.5f;
 
     void OnEnable()

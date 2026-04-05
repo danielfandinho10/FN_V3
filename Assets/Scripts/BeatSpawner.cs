@@ -71,7 +71,7 @@ public class BeatSpawner : MonoBehaviour
             foreach (float step in steps)
             {
                 //Corchea
-                if (step % 1f != 0 && Random.value > 0.1f)
+                if (Random.value > 0.15f)
                     continue;
 
                 float t = bar * 4 * beat + step * beat;
