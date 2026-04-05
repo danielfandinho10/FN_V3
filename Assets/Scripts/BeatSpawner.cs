@@ -48,7 +48,14 @@ public class BeatSpawner : MonoBehaviour
 
             GameObject enemy = Instantiate(targetPrefab, spawnPos, rot);
 
-             //Destroy(enemy, 3.5f);
+            Enemy e = enemy.GetComponent<Enemy>();
+            if (e != null)
+            {
+                e.targetTime = beats[index]; // tiempo exacto del beat
+                e.audioSource = audioSource;
+            }
+
+            Destroy(enemy, 3f);
 
             index++;
         }
