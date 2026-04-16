@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class WeaponController : MonoBehaviour
 {
     public Camera playerCamera;
@@ -8,10 +9,8 @@ public class WeaponController : MonoBehaviour
     public int vidas = 3;
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
+    public GameObject GameOver;
 
-    // Ajustado según tu requerimiento:
-    // Perfect: 0 a 1s
-    // Good: 1s a final (3s)
     public float perfectLimit = 1f;
 
     void Start()
@@ -41,7 +40,7 @@ public class WeaponController : MonoBehaviour
                 Enemy enemy = root.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    // Calculamos cuánto tiempo ha pasado desde el spawn
+                    
                     float timeSinceSpawn = Time.time - enemy.spawnTime;
 
                     if (timeSinceSpawn <= perfectLimit)
@@ -51,13 +50,13 @@ public class WeaponController : MonoBehaviour
                     }
                     else
                     {
-                        // Si está vivo y disparas después de 1s, es Good
+                        
                         Debug.Log("GOOD: " + timeSinceSpawn + "s");
                         GameEvents.OnGood?.Invoke();
                     }
 
                     GameEvents.OnHit?.Invoke();
-                    // Importante: Destruimos inmediatamente para que el Spawner no lance el Miss
+                    
                     Destroy(root.gameObject);
                 }
             }
@@ -75,9 +74,15 @@ public class WeaponController : MonoBehaviour
     void PerderVida()
     {
         vidas--;
-        Debug.Log("Fallo al aire. vidas restantes: " + vidas);
+        
         GameEvents.OnMiss?.Invoke();
-        if (vidas <= 0) Debug.Log("GAME OVER");
+        if (vidas <= 0)
+        {
+            GameOver.SetActive(true); 
+            Time.timeScale = 0; 
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true;
+        }
     }
 
     IEnumerator FlashLight()
