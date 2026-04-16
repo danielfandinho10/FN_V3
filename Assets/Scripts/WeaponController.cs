@@ -6,78 +6,60 @@ public class WeaponController : MonoBehaviour
     public Camera playerCamera;
     public float maxDistance = 1000f;
     public int vidas = 3;
-
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
 
-    public float perfectWindow = 1f;
-    public float goodWindow = 3f;
+    // Ajustado según tu requerimiento:
+    // Perfect: 0 a 1s
+    // Good: 1s a final (3s)
+    public float perfectLimit = 1f;
 
     void Start()
     {
-        if (playerCamera == null)
-            playerCamera = Camera.main;
-
-        if (muzzleLight != null)
-            muzzleLight.enabled = false;
+        if (playerCamera == null) playerCamera = Camera.main;
+        if (muzzleLight != null) muzzleLight.enabled = false;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            DetectarImpacto();
+        if (Input.GetMouseButtonDown(0)) DetectarImpacto();
     }
 
     void DetectarImpacto()
     {
-        if (muzzleFlash != null)
-            muzzleFlash.Play();
-
-        if (muzzleLight != null)
-            StartCoroutine(FlashLight());
+        if (muzzleFlash != null) muzzleFlash.Play();
+        if (muzzleLight != null) StartCoroutine(FlashLight());
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
-        Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 1f);
-
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
             Transform root = hit.collider.transform.root;
-
             if (root.CompareTag("Target"))
             {
                 Enemy enemy = root.GetComponent<Enemy>();
-
-                if (enemy != null && enemy.audioSource != null)
+                if (enemy != null)
                 {
-                    float currentTime = enemy.audioSource.time;
-                    float expectedHitTime = enemy.targetTime + 0.8f; // travelTime
-                    float diff = Mathf.Abs(currentTime - expectedHitTime);
+                    // Calculamos cuánto tiempo ha pasado desde el spawn
+                    float timeSinceSpawn = Time.time - enemy.spawnTime;
 
-                    if (diff <= perfectWindow)
+                    if (timeSinceSpawn <= perfectLimit)
                     {
-                        Debug.Log("PERFECT");
+                        Debug.Log("PERFECT: " + timeSinceSpawn + "s");
                         GameEvents.OnPerfect?.Invoke();
-                        GameEvents.OnHit?.Invoke();
-                    }
-                    else if (diff <= goodWindow)
-                    {
-                        Debug.Log("GOOD");
-                        GameEvents.OnGood?.Invoke();
-                        GameEvents.OnHit?.Invoke();
                     }
                     else
                     {
-                        Debug.Log("BAD");
+                        // Si está vivo y disparas después de 1s, es Good
+                        Debug.Log("GOOD: " + timeSinceSpawn + "s");
+                        GameEvents.OnGood?.Invoke();
                     }
-                }
-                else
-                {
-                    GameEvents.OnHit?.Invoke();
-                }
 
-                Destroy(root.gameObject, 0.3f);
+                    GameEvents.OnHit?.Invoke();
+                    // Importante: Destruimos inmediatamente para que el Spawner no lance el Miss
+                    Destroy(root.gameObject);
+                }
             }
             else
             {
@@ -93,13 +75,9 @@ public class WeaponController : MonoBehaviour
     void PerderVida()
     {
         vidas--;
-        Debug.Log("Fallaste. vidas restantes: " + vidas);
+        Debug.Log("Fallo al aire. vidas restantes: " + vidas);
         GameEvents.OnMiss?.Invoke();
-
-        if (vidas <= 0)
-        {
-            Debug.Log("GAME OVER");
-        }
+        if (vidas <= 0) Debug.Log("GAME OVER");
     }
 
     IEnumerator FlashLight()
