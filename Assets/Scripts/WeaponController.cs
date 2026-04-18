@@ -1,15 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class WeaponController : MonoBehaviour
 {
     public Camera playerCamera;
     public float maxDistance = 1000f;
-    public int vidas = 3;
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
-    public GameObject GameOver;
+    
 
     public float perfectLimit = 1f;
 
@@ -17,6 +15,10 @@ public class WeaponController : MonoBehaviour
     {
         if (playerCamera == null) playerCamera = Camera.main;
         if (muzzleLight != null) muzzleLight.enabled = false;
+
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -40,48 +42,31 @@ public class WeaponController : MonoBehaviour
                 Enemy enemy = root.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    
                     float timeSinceSpawn = Time.time - enemy.spawnTime;
 
                     if (timeSinceSpawn <= perfectLimit)
                     {
-                        Debug.Log("PERFECT: " + timeSinceSpawn + "s");
                         GameEvents.OnPerfect?.Invoke();
                     }
                     else
                     {
-                        
-                        Debug.Log("GOOD: " + timeSinceSpawn + "s");
                         GameEvents.OnGood?.Invoke();
                     }
 
                     GameEvents.OnHit?.Invoke();
-                    
                     Destroy(root.gameObject);
                 }
             }
             else
             {
-                PerderVida();
+                
+                GameEvents.OnMiss?.Invoke();
             }
         }
         else
         {
-            PerderVida();
-        }
-    }
-
-    void PerderVida()
-    {
-        vidas--;
-        
-        GameEvents.OnMiss?.Invoke();
-        if (vidas <= 0)
-        {
-            GameOver.SetActive(true); 
-            Time.timeScale = 0; 
-            Cursor.lockState = CursorLockMode.None; 
-            Cursor.visible = true;
+            
+            GameEvents.OnMiss?.Invoke();
         }
     }
 

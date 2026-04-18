@@ -5,30 +5,28 @@ using TMPro;
 public class HighScoreManager : MonoBehaviour
 {
     public TMP_InputField inputNombre; 
-    public ScoreManager scoreManager; 
+    public ScoreManager scoreManager;
 
     public void GuardarYVolverAlMenu()
     {
-        string nuevoNombre = inputNombre.text.ToUpper();
-        if (string.IsNullOrEmpty(nuevoNombre)) nuevoNombre = "AAA"; 
+       
+        Time.timeScale = 1;
 
+        
+        string nuevoNombre = inputNombre.text.ToUpper();
+        if (string.IsNullOrEmpty(nuevoNombre)) nuevoNombre = "AAA";
         int nuevaPuntuacion = scoreManager.score;
 
-       
         for (int i = 0; i < 5; i++)
         {
             int scoreGuardado = PlayerPrefs.GetInt("Score" + i, 0);
-
             if (nuevaPuntuacion > scoreGuardado)
             {
-                
                 for (int j = 4; j > i; j--)
                 {
                     PlayerPrefs.SetInt("Score" + j, PlayerPrefs.GetInt("Score" + (j - 1)));
                     PlayerPrefs.SetString("Name" + j, PlayerPrefs.GetString("Name" + (j - 1)));
                 }
-
-                
                 PlayerPrefs.SetInt("Score" + i, nuevaPuntuacion);
                 PlayerPrefs.SetString("Name" + i, nuevoNombre);
                 PlayerPrefs.Save();
@@ -36,6 +34,8 @@ public class HighScoreManager : MonoBehaviour
             }
         }
 
-        SceneManager.LoadScene(0); 
-    }
+        
+        SceneManager.LoadScene(0);
+    
+}
 }

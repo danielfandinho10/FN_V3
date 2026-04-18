@@ -5,8 +5,11 @@ public class LifeBarBehaviour : MonoBehaviour
 {
     public Image fillImage;
     public float currentLife = 1f;
-    public float hitAmount = 0.08f;   //sube
-    public float missAmount = 0.08f;  //baja
+    public float hitAmount = 0.08f;
+    public float missAmount = 0.08f;
+
+    
+    public GameObject GameOver;
 
     void OnEnable()
     {
@@ -32,10 +35,24 @@ public class LifeBarBehaviour : MonoBehaviour
         currentLife -= missAmount;
         currentLife = Mathf.Clamp01(currentLife);
         UpdateBar();
+
+        
+        if (currentLife <= 0)
+        {
+            EjecutarGameOver();
+        }
     }
 
     void UpdateBar()
     {
         fillImage.fillAmount = currentLife;
+    }
+
+    void EjecutarGameOver()
+    {
+        GameOver.SetActive(true);
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
