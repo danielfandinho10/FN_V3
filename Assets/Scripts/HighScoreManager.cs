@@ -12,9 +12,10 @@ public class HighScoreManager : MonoBehaviour
        
         Time.timeScale = 1;
 
+
         
-        string nuevoNombre = inputNombre.text.ToUpper();
-        if (string.IsNullOrEmpty(nuevoNombre)) nuevoNombre = "AAA";
+        string nuevoNombre = inputNombre.text.Trim().ToUpper();
+        if (string.IsNullOrEmpty(nuevoNombre) || nuevoNombre.Length < 1) nuevoNombre = "AAA";
         int nuevaPuntuacion = scoreManager.score;
 
         for (int i = 0; i < 5; i++)

@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     public int perfectPoints = 100;
     public int goodPoints = 50;
-    public int missPenalty = -25;
+    public int missPenalty = -10;
 
     public TextMeshProUGUI scoreText;
 
