@@ -7,7 +7,8 @@ public class WeaponController : MonoBehaviour
     public float maxDistance = 1000f;
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
-    
+    public Animator animatorArma;
+
 
     public float perfectLimit = 1f;
 
@@ -23,7 +24,12 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Fire1")) 
+        {
+            Disparar();
+        }
         if (Input.GetMouseButtonDown(0)) DetectarImpacto();
+
     }
 
     void DetectarImpacto()
@@ -75,5 +81,15 @@ public class WeaponController : MonoBehaviour
         muzzleLight.enabled = true;
         yield return new WaitForSeconds(0.05f);
         muzzleLight.enabled = false;
+    }
+
+    
+
+    void Disparar()
+    {
+        if (animatorArma != null)
+        {
+            animatorArma.SetTrigger("ShootTrigg");
+        }
     }
 }
