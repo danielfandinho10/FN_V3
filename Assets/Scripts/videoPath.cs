@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using System.IO;
 
-public class VideoLoader : MonoBehaviour
+public class videoPath : MonoBehaviour
 {
     public VideoPlayer videoPlayer;
 
