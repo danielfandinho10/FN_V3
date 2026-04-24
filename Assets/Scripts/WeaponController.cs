@@ -9,7 +9,6 @@ public class WeaponController : MonoBehaviour
     public Light muzzleLight;
     public Animator animatorArma;
 
-
     public float perfectLimit = 1f;
 
     void Start()
@@ -17,19 +16,24 @@ public class WeaponController : MonoBehaviour
         if (playerCamera == null) playerCamera = Camera.main;
         if (muzzleLight != null) muzzleLight.enabled = false;
 
-        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")) 
+        // --- ESTA ES LA MEJORA ---
+        // Si el juego está en pausa (paneles activos), no disparamos ni detectamos impacto
+        if (Time.timeScale == 0) return;
+        // -------------------------
+
+        if (Input.GetButtonDown("Fire1"))
         {
             Disparar();
         }
-        if (Input.GetMouseButtonDown(0)) DetectarImpacto();
 
+        // También movemos la detección de impacto aquí para que respete la pausa
+        if (Input.GetMouseButtonDown(0)) DetectarImpacto();
     }
 
     void DetectarImpacto()
@@ -65,13 +69,11 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
-                
                 GameEvents.OnMiss?.Invoke();
             }
         }
         else
         {
-            
             GameEvents.OnMiss?.Invoke();
         }
     }
@@ -82,8 +84,6 @@ public class WeaponController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         muzzleLight.enabled = false;
     }
-
-    
 
     void Disparar()
     {
