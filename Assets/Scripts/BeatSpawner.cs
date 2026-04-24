@@ -14,6 +14,7 @@
         public float minDistance = 2f;
         public float spawnHeight = 1.5f;
         public float lifeTime = 3f; 
+
         private List<float> beats = new List<float>();
         private int index = 0;
         private List<Vector3> usedPositions = new List<Vector3>();
@@ -22,7 +23,7 @@
         {
             if (config == null || audioSource == null || targetPrefab == null || spawnArea == null || player == null)
             {
-                Debug.LogError("BeatSpawner: faltan refs en el inspector");
+                
                 return;
             }
             config.LoadConfig();
@@ -68,7 +69,7 @@
            
             if (enemy != null)
             {
-                Debug.Log("MISS: El enemigo expiró");
+                
                 GameEvents.OnMiss?.Invoke();
                 Destroy(enemy);
             }

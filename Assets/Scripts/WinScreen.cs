@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class WinTimer : MonoBehaviour
+public class WinScreen : MonoBehaviour
 {
     [Header("Configuración")]
-    public float tiempoParaGanar = 30f;
+    public float tiempoParaGanar = 25f;
     public GameObject panelFinal;
 
     [Header("Intercambio de Sprites (Letrero)")]

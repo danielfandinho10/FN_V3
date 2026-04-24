@@ -4,7 +4,7 @@ public class Movement_Player : MonoBehaviour
 {
     public float speed = 5f;
 
-    // Límites del mapa
+    // limites del mapa
     public float minX, maxX;
     public float minZ, maxZ;
 
@@ -17,7 +17,7 @@ public class Movement_Player : MonoBehaviour
 
         transform.Translate(movement, Space.World);
 
-        // Limitar posición
+       
         float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
         float clampedZ = Mathf.Clamp(transform.position.z, minZ, maxZ);
 

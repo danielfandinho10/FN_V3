@@ -1,22 +1,21 @@
-using UnityEngine;
+//using UnityEngine;
+///public class Bullet : MonoBehaviour
+//{
+//    public float speed = 180f;
+//    public float lifeTime = 3f;
 
-public class Bullet : MonoBehaviour
-{
-    public float speed = 180f;
-    public float lifeTime = 3f;
+//   public Rigidbody rb;
 
-   public Rigidbody rb;
+//    void Start()
+//    {
+//        rb = GetComponent<Rigidbody>();
+//        rb.linearVelocity = transform.forward * speed;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.linearVelocity = transform.forward * speed;
+//        Destroy(gameObject, lifeTime);
+//    }
 
-        Destroy(gameObject, lifeTime);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        Destroy(gameObject);
-    }
-}
+//    void OnTriggerEnter(Collider other)
+//    {
+//        Destroy(gameObject);
+//    }
+//}
