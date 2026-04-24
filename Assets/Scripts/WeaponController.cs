@@ -22,17 +22,13 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        // --- ESTA ES LA MEJORA ---
-        // Si el juego está en pausa (paneles activos), no disparamos ni detectamos impacto
         if (Time.timeScale == 0) return;
-        // -------------------------
 
         if (Input.GetButtonDown("Fire1"))
         {
             Disparar();
         }
 
-        // También movemos la detección de impacto aquí para que respete la pausa
         if (Input.GetMouseButtonDown(0)) DetectarImpacto();
     }
 
@@ -47,26 +43,27 @@ public class WeaponController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
             Transform root = hit.collider.transform.root;
+
             if (root.CompareTag("Target"))
             {
                 Enemy enemy = root.GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     float timeSinceSpawn = Time.time - enemy.spawnTime;
-
-                    if (timeSinceSpawn <= perfectLimit)
-                    {
-                        GameEvents.OnPerfect?.Invoke();
-                    }
-                    else
-                    {
-                        GameEvents.OnGood?.Invoke();
-                    }
+                    if (timeSinceSpawn <= perfectLimit) GameEvents.OnPerfect?.Invoke();
+                    else GameEvents.OnGood?.Invoke();
 
                     GameEvents.OnHit?.Invoke();
                     Destroy(root.gameObject);
                 }
             }
+            
+            else if (root.CompareTag("Tiffany"))
+            {
+                GameEvents.OnEasterEgg?.Invoke();
+                
+            }
+           
             else
             {
                 GameEvents.OnMiss?.Invoke();
@@ -87,9 +84,6 @@ public class WeaponController : MonoBehaviour
 
     void Disparar()
     {
-        if (animatorArma != null)
-        {
-            animatorArma.SetTrigger("ShootTrigg");
-        }
+        if (animatorArma != null) animatorArma.SetTrigger("ShootTrigg");
     }
 }

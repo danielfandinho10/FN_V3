@@ -1058,8 +1058,8 @@ Transform:
   m_GameObject: {fileID: 576443690}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.9, y: 9, z: 62.9}
-  m_LocalScale: {x: 53.01073, y: 14.886, z: 65.37098}
+  m_LocalPosition: {x: 10.4, y: 9, z: 62.9}
+  m_LocalScale: {x: 49.034927, y: 14.886, z: 65.37098}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -8748,6 +8748,32 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1739020902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 38362641e1ffa7e4582c7935b22349a5, type: 3}
+  m_PrefabInstance: {fileID: 1783164766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1739020906
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739020902}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8223352, y: 1.775862, z: 2.8926566}
+  m_Center: {x: -0.04035741, y: 0.11206898, z: 0.18882339}
 --- !u!1 &1761167456
 GameObject:
   m_ObjectHideFlags: 0
@@ -8850,10 +8876,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tiffany
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 38362641e1ffa7e4582c7935b22349a5, type: 3}
+      propertyPath: m_TagString
+      value: Tiffany
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38362641e1ffa7e4582c7935b22349a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1739020906}
   m_SourcePrefab: {fileID: 100100000, guid: 38362641e1ffa7e4582c7935b22349a5, type: 3}
 --- !u!1 &1833453428
 GameObject:

@@ -6,4 +6,5 @@ public static class GameEvents
     public static Action OnGood;
     public static Action OnMiss;
     public static Action OnHit;
+    public static System.Action OnEasterEgg;
 }
