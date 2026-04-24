@@ -25,7 +25,8 @@ public class Camera_Controller : MonoBehaviour
         xRotation -= mouseY;
         yRotation += mouseX;
 
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        xRotation = Mathf.Clamp(xRotation, -45f, 45f);
+        yRotation = Mathf.Clamp(yRotation, -50f, 50f);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class WinScreen : MonoBehaviour
 {
     [Header("Configuración")]
-    public float tiempoParaGanar = 25f;
+    public float tiempoParaGanar = 30f;
     public GameObject panelFinal;
 
     [Header("Intercambio de Sprites (Letrero)")]
